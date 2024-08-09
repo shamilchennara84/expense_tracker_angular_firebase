@@ -16,6 +16,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { firebaseConfig } from './core/constants/firebase';
 import { AbsolutePipe } from './core/pipe/absolute.pipe';
+import { environment } from '../environments/environment.development';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AbsolutePipe } from './core/pipe/absolute.pipe';
   providers: [
     provideAnimationsAsync(),
     importProvidersFrom([
-      AngularFireModule.initializeApp(firebaseConfig),
+      AngularFireModule.initializeApp(environment.firebase),
       AngularFireAuthModule,
       AngularFireDatabaseModule,
       AngularFirestoreModule,
