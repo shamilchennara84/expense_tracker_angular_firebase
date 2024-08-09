@@ -14,10 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'expense-form/:id',
-    loadComponent: () =>
-      import('./pages/expense-form/expense-form.component').then(
-        (c) => c.ExpenseFormComponent
-      ),
+    component: ExpenseFormComponent,
   },
 ];
 
