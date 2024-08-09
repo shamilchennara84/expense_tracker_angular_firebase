@@ -9,23 +9,37 @@ import { ExpenseComponent } from './pages/expense/expense.component';
 import { ExpenseFormComponent } from './pages/expense-form/expense-form.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ExpenseCardComponent } from './core/components/expense-card/expense-card.component';
-import {AngularFireModule} from "@angular/fire/compat"
-import {AngularFireAuthModule} from "@angular/fire/compat/auth"
-import {AngularFireDatabaseModule} from "@angular/fire/compat/database"
-import {AngularFirestoreModule} from "@angular/fire/compat/firestore"
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { firebaseConfig } from './core/constants/firebase';
+import { AbsolutePipe } from './core/pipe/absolute.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ExpenseComponent, ExpenseFormComponent, ExpenseCardComponent],
+  declarations: [
+    AppComponent,
+    ExpenseComponent,
+    ExpenseFormComponent,
+    AbsolutePipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [provideAnimationsAsync(),importProvidersFrom([AngularFireModule.initializeApp(firebaseConfig),AngularFireAuthModule,AngularFireDatabaseModule,AngularFirestoreModule])],
+  providers: [
+    provideAnimationsAsync(),
+    importProvidersFrom([
+      AngularFireModule.initializeApp(firebaseConfig),
+      AngularFireAuthModule,
+      AngularFireDatabaseModule,
+      AngularFirestoreModule,
+    ]),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

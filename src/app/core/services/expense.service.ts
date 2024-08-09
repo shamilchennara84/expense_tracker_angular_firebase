@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireList,
+  SnapshotAction,
 } from '@angular/fire/compat/database';
 import { IExpense } from '../models/expense.model';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExpenseService {
   private dbPath = '/expenses';
-  expensesRef: AngularFireList<IExpense>;
+  expensesRef: AngularFireList<any>;
   constructor(private db: AngularFireDatabase) {
     this.expensesRef = db.list(this.dbPath);
   }
@@ -24,11 +26,11 @@ export class ExpenseService {
   }
 
   addExpense(expense: IExpense) {
-    this.expensesRef.push(expense);
+    return from(this.expensesRef.push(expense));
   }
 
   updateExpense(key: string, expense: IExpense) {
-    this.expensesRef.update(key, expense);
+    return from(this.expensesRef.update(key, expense));
   }
 
   deleteExpense(key: string) {

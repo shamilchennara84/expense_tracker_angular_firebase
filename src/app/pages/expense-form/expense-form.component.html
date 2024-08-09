@@ -4,7 +4,7 @@
   </div>
   <mat-card>
     <mat-card-content>
-      <form class="w-full min-w-[150px] max-w-[800px] p-5 mx-auto" [formGroup]="expenseForm" (ngSubmit)="createExpense()">
+      <form class="w-full min-w-[150px] max-w-[800px] p-5 mx-auto" [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="w-full mb-2" appearance="fill">
           <mat-label>Type</mat-label>
           <!-- Use matSelect instead of matInput -->
@@ -18,7 +18,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="w-full mb-2" appearance="fill">
+        <mat-form-field class="w-full mb-2" >
           <mat-label>Amount</mat-label>
           <input matInput type="number" formControlName="amount" required />
           <mat-error *ngIf="expenseForm.get('amount')?.hasError('required')">

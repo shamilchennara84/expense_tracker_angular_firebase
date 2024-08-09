@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center mb-10">
   <div class="button-container">
     <button mat-fab extended color="primary" routerLink="/expense-form">
       <mat-icon>add</mat-icon>
@@ -6,25 +6,33 @@
     </button>
   </div>
   <div>
-    <p class="font-medium text-xl ">Total Expense: <span>₹1000</span></p>
+    <p class="font-medium text-xl " [class.red]="totalExpenses > 0" [class.green]="totalExpenses < 0" [class.grey]="totalExpenses === 0">
+      Balance: <span *ngIf="totalExpenses > 0">-</span>
+      <span *ngIf="totalExpenses < 0">+</span><span [ngClass]="{'red': totalExpenses > 0, 'green': totalExpenses < 0, 'grey': totalExpenses === 0}">
+        {{(totalExpenses|absolute) | currency:'INR':'symbol'}}
+      </span>
+
+    </p>
   </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+  <div *ngFor="let expense of expenses;">
+    <mat-card class="card " appearance="outlined">
+      <mat-card-header class="flex justify-between">
+        <mat-card-title>{{expense.type}}</mat-card-title>
+        <div>
+          <p class="font-medium text-lg " [class.red]="expense.type == 'expense'" [class.green]="expense.type ==  'income'">₹{{expense.amount}}</p>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="truncate" [matTooltip]="expense.description">{{expense.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="onEdit(expense.key!)">Edit</button>
+        <button mat-button color="accent" (click)="onRemove(expense.key!)">Remove</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-  <mat-card class="card " appearance="outlined">
-    <mat-card-header class="flex justify-between">
-      <mat-card-title>Card Title</mat-card-title>
-      <div>
-        <p class="font-medium text-lg ">₹1000</p>
-      </div>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="truncate" matTooltip="This is a brief description of the card. It provides additional details about the card's purpose or features.">This is a brief description of the card. It provides additional details about the card's purpose or features.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="onEdit()">Edit</button>
-      <button mat-button color="accent" (click)="onRemove()">Remove</button>
-    </mat-card-actions>
-  </mat-card>
 
 </div>
